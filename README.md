@@ -3,6 +3,19 @@
 
 Docker container for a Cronicle single-server master node
 
+# Supported tags
+
+* `latest` [Dockerfile](https://github.com/belsander/docker-cronicle/blob/aa0367de2e7773cfef22608eeee3e019300e2400/Dockerfile)
+* `letsencrypt` [Dockerfile.letsencrypt](https://github.com/belsander/docker-cronicle/blob/aa0367de2e7773cfef22608eeee3e019300e2400/Dockerfile.letsencrypt)
+
+## latest
+Latest version of Cronicle server based upon nodejs Docker image.
+
+## letsencrypt
+Same as the `latest` Docker image, but with support for Let's Encrypt
+certificates. Which means that the Cronicle server can be used with SSL and a
+Let's Encrypt certificate. If this is not needed, just use the tag `latest`.
+
 # Usage
 
 ## Install
