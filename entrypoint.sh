@@ -2,20 +2,20 @@
 
 ROOT_DIR=/opt/cronicle
 CONF_DIR=$ROOT_DIR/conf
-ETC_DIR=$ROOT_DIR/etc
 BIN_DIR=$ROOT_DIR/bin
+DATA_DIR=$ROOT_DIR/data
 
 # Only run setup when setup needs to be done
-if [ ! -f $ETC_DIR/.setup_done ]
+if [ ! -f $DATA_DIR/.setup_done ]
 then
   $BIN_DIR/control.sh setup
 
   mv $CONF_DIR/config.json $CONF_DIR/config.json.origin
 
-  if [ -f $ETC_DIR/config.json.import ]
+  if [ -f $DATA_DIR/config.json.import ]
   then
     # Move in custom configuration
-    cp $ETC_DIR/config.json.import $CONF_DIR/config.json
+    cp $DATA_DIR/config.json.import $CONF_DIR/config.json
   else
     # Use default configuration with changes through ENV variables
 	cat $CONF_DIR/config.json.origin | \
@@ -27,7 +27,7 @@ then
   fi
 
   # Marking setup done
-  touch $ETC_DIR/.setup_done
+  touch $DATA_DIR/.setup_done
 fi
 
 # Run cronicle
