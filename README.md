@@ -25,7 +25,7 @@ docker pull intelliops/cronicle:latest
 
 ## Running
 ```sh
-docker run --name cronicle --hostname examplehostname -p 3012:3012 intelliops/cronicle:latest
+docker run --name cronicle --hostname localhost -p 3012:3012 intelliops/cronicle:latest
 ```
 
 Alternatively with persistent data and logs:
@@ -33,10 +33,14 @@ Alternatively with persistent data and logs:
 docker run --name cronicle \
   -v /path-to-cronicle-storage/data:/opt/cronicle/data:rw \
   -v /path-to-cronicle-storage/logs:/opt/cronicle/logs:rw \
-  --hostname examplehostname -p 3012:3012 intelliops/cronicle:latest
+  --hostname localhost -p 3012:3012 intelliops/cronicle:latest
 ```
 
-The web UI will be available at: http://examplehostname:3012
+The web UI will be available at: http://localhost:3012
+
+> NOTE: please replace the hostname `localhost`, this is only for testing
+> purposes! If you rename the hostname also consider setting the environmental
+> variable `BASE_APP_URL`.
 
 ## Volumes
 | Path | Description |
@@ -49,10 +53,11 @@ The web UI will be available at: http://examplehostname:3012
 ### Environmental variables
 | Environmental variable | Description | Default value |
 |--------|--------|--------|
-| WEB_SOCKET_USE_HOSTNAMES | Setting this parameter to `1` will force Cronicle's Web UI to connect to the back-end servers using their hostnames rather than IP addresses. This includes both AJAX API calls and Websocket streams. You should only need to enable this in special situations where your users cannot access your servers via their LAN IPs, and you need to proxy them through a hostname (DNS) instead. The default is `0` (disabled), meaning connect using IP addresses.))' | 0 |
-| SERVER_COMM_USE_HOSTNAMES | Setting this parameter to `1` will force the Cronicle servers to connect to each other using hostnames rather than LAN IP addresses. This is mainly for special situations where your local server IP addresses may change, and you would prefer to rely on DNS instead. The default is `0` (disabled), meaning connect using IP addresses.) | 0 |
-| WEBSERVER_HTTPS_PORT | The SSL port for the web UI of your Cronicle server | 3013 |
-| BASE_APP_URL | A fully-qualified URL to Cronicle on your server, including the http_port if non-standard. This is used for self-referencing URLs | http://localhost:3012 |
+| WEB_SOCKET_USE_HOSTNAMES | Setting this parameter to `1` will force Cronicle's Web UI to connect to the back-end servers using their hostnames rather than IP addresses. This includes both AJAX API calls and Websocket streams. You should only need to enable this in special situations where your users cannot access your servers via their LAN IPs, and you need to proxy them through a hostname (DNS) instead. The default is `0` (disabled), meaning connect using IP addresses.))' | 1 |
+| SERVER_COMM_USE_HOSTNAMES | Setting this parameter to `1` will force the Cronicle servers to connect to each other using hostnames rather than LAN IP addresses. This is mainly for special situations where your local server IP addresses may change, and you would prefer to rely on DNS instead. The default is `0` (disabled), meaning connect using IP addresses.) | 1 |
+| WEBSERVER_HTTP_PORT | The HTTP port for the web UI of your Cronicle server | 3012 |
+| WEBSERVER_HTTPS_PORT | The SSL port for the web UI of your Cronicle server | 443 |
+| BASE_APP_URL | A fully-qualified URL to Cronicle on your server, including the http_port if non-standard. This is used for self-referencing URLs | http://${HOSTNAME}:${WEBSERVER_HTTP_PORT} |
 
 ### Custom configuration file
 A custom configuration file can be provide in the following location:
