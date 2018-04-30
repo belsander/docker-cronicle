@@ -53,11 +53,11 @@ The web UI will be available at: http://localhost:3012
 ### Environmental variables
 | Environmental variable | Description | Default value |
 |--------|--------|--------|
-| WEB_SOCKET_USE_HOSTNAMES | Setting this parameter to `1` will force Cronicle's Web UI to connect to the back-end servers using their hostnames rather than IP addresses. This includes both AJAX API calls and Websocket streams. You should only need to enable this in special situations where your users cannot access your servers via their LAN IPs, and you need to proxy them through a hostname (DNS) instead. The default is `0` (disabled), meaning connect using IP addresses.))' | 1 |
-| SERVER_COMM_USE_HOSTNAMES | Setting this parameter to `1` will force the Cronicle servers to connect to each other using hostnames rather than LAN IP addresses. This is mainly for special situations where your local server IP addresses may change, and you would prefer to rely on DNS instead. The default is `0` (disabled), meaning connect using IP addresses.) | 1 |
-| WEBSERVER_HTTP_PORT | The HTTP port for the web UI of your Cronicle server | 3012 |
-| WEBSERVER_HTTPS_PORT | The SSL port for the web UI of your Cronicle server | 443 |
-| BASE_APP_URL | A fully-qualified URL to Cronicle on your server, including the http_port if non-standard. This is used for self-referencing URLs | http://${HOSTNAME}:${WEBSERVER_HTTP_PORT} |
+| WEB_SOCKET_USE_HOSTNAMES | Setting this parameter to `1` will force Cronicle's Web UI to connect to the back-end servers using their hostnames rather than IP addresses. This includes both AJAX API calls and Websocket streams. | 1 |
+| SERVER_COMM_USE_HOSTNAMES | Setting this parameter to `1` will force the Cronicle servers to connect to each other using hostnames rather than LAN IP addresses. | 1 |
+| WEBSERVER_HTTP_PORT | The HTTP port for the web UI of your Cronicle server. (Keep default value, unless you know what you are doing) | 3012 |
+| WEBSERVER_HTTPS_PORT | The SSL port for the web UI of your Cronicle server. (Keep default value, unless you know what you are doing) | 443 |
+| BASE_APP_URL | A fully-qualified URL to Cronicle on your server, including the port if non-standard. This is used for self-referencing URLs. | http://${HOSTNAME}:${WEBSERVER_HTTP_PORT} |
 
 ### Custom configuration file
 A custom configuration file can be provide in the following location:
