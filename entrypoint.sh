@@ -26,7 +26,7 @@ then
       jq ".server_comm_use_hostnames = ${SERVER_COMM_USE_HOSTNAMES:-1}" | \
       jq ".WebServer.http_port = ${_WEBSERVER_HTTP_PORT}" | \
       jq ".WebServer.https_port = ${WEBSERVER_HTTPS_PORT:-443}" | \
-      jq ".base_app_url = \"${BASE_APP_URL:-http://${HOSTNAME}:${_WEBSERVER_HTTP_PORT}\"" \
+      jq ".base_app_url = \"${BASE_APP_URL:-http://${HOSTNAME}:${_WEBSERVER_HTTP_PORT}}\"" \
       > $CONF_DIR/config.json
 
   fi
