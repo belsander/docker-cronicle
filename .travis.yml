@@ -11,3 +11,5 @@ install:
 
 script:
   - docker ps -a 
+  - sleep 20
+  - curl http://localhost:3012 | grep LICENSE
