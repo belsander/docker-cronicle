@@ -6,11 +6,17 @@ services:
   - docker
 
 install:
-  - docker build -t intelliops/cronicle .
+  - docker build -t intelliops/cronicle -f Dockerfile .
+  - docker build -t intelliops/cronicle-letsencrypt -f Dockerfile.letsencrypt .
   - docker run --name cronicle -d -p 127.0.0.1:3012:3012 intelliops/cronicle
+  - docker run --name cronicle-letsencrypt -d -p 127.0.0.1:4012:3012 intelliops/cronicle-letsencrypt
 
 script:
   - docker ps -a
   - sleep 20
   - docker exec cronicle /bin/ash -c "cat /opt/cronicle/conf/config.json"
+  - docker exec cronicle-letsencrypt /bin/ash -c "cat /opt/cronicle/conf/config.json"
   - curl http://localhost:3012 | grep LICENSE
+  - curl http://localhost:4012 | grep LICENSE
+  - docker stop cronicle cronicle-letsencrypt
+  - docker rm -f cronicle cronicle-letsencrypt
