@@ -22,11 +22,13 @@ then
     _WEBSERVER_HTTP_PORT=${WEBSERVER_HTTP_PORT:-3012}
 
     cat $CONF_DIR/config.json.origin | \
-      jq ".web_socket_use_hostnames = ${WEB_SOCKET_USE_HOSTNAMES:-1}" | \
-      jq ".server_comm_use_hostnames = ${SERVER_COMM_USE_HOSTNAMES:-1}" | \
+      jq ".web_socket_use_hostnames = ${WEB_SOCKET_USE_HOSTNAMES:-true}" | \
+      jq ".server_comm_use_hostnames = ${SERVER_COMM_USE_HOSTNAMES:-true}" | \
       jq ".WebServer.http_port = ${_WEBSERVER_HTTP_PORT}" | \
       jq ".WebServer.https_port = ${WEBSERVER_HTTPS_PORT:-443}" | \
-      jq ".base_app_url = \"${BASE_APP_URL:-http://${HOSTNAME}:${_WEBSERVER_HTTP_PORT}}\"" \
+      jq ".base_app_url = \"${BASE_APP_URL:-http://${HOSTNAME}:${_WEBSERVER_HTTP_PORT}}\"" | \
+      jq ".web_direct_connect = ${WEB_DIRECT_CONNECT:-false}" | \
+      jq ".socket_io_transports = ${SOCKET_IO_TRANSPORTS:-[\"polling\", \"websocket\"]}" \
       > $CONF_DIR/config.json
 
   fi

@@ -7,9 +7,10 @@ services:
 
 install:
   - docker build -t intelliops/cronicle .
-  - docker run -d -p 127.0.0.1:3012:3012 intelliops/cronicle
+  - docker run --name cronicle -d -p 127.0.0.1:3012:3012 intelliops/cronicle
 
 script:
-  - docker ps -a 
+  - docker ps -a
   - sleep 20
+  - docker exec cronicle /bin/ash -c "cat /opt/cronicle/conf/config.json"
   - curl http://localhost:3012 | grep LICENSE
