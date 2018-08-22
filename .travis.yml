@@ -6,10 +6,10 @@ services:
   - docker
 
 install:
-  - docker build -t intelliops/cronicle -f Dockerfile .
-  - docker build -t intelliops/cronicle-letsencrypt -f Dockerfile.letsencrypt .
-  - docker run --name cronicle -d -p 127.0.0.1:3012:3012 intelliops/cronicle
-  - docker run --name cronicle-letsencrypt -d -p 127.0.0.1:4012:3012 intelliops/cronicle-letsencrypt
+  - docker build -t intelliops/cronicle:latest -f Dockerfile .
+  - docker build -t intelliops/cronicle-letsencrypt:latest -f Dockerfile.letsencrypt .
+  - docker run --name cronicle -d -p 127.0.0.1:3012:3012 intelliops/cronicle:latest
+  - docker run --name cronicle-letsencrypt -d -p 127.0.0.1:4012:3012 intelliops/cronicle-letsencrypt:latest
 
 script:
   - docker ps -a
