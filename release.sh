@@ -25,19 +25,19 @@ set_version() {
 
 commit_version() {
   # Commit new version in VERSION_FILE
-  git add $VERSION_FILE
-  git commit --message "Bumped version: $1"
+  git add $VERSION_FILE 2>&1 >/dev/null
+  git commit --message "Bumped version: $1" 2>&1 >/dev/null
 }
 
 tag_version() {
   # Create tag at current commit
-  git tag -a "$1"
+  git tag "$1" 2>&1 >/dev/null
 }
 
 push_changes() {
   # Push local changes to GitHub
-  git remote add origin-auth "https://${GH_AUTH}@github.com/$REPO" > /dev/null 2>&1
-  git push --tags --quiet --set-upstream origin-auth master
+  git remote add origin-auth "https://${GH_AUTH}@github.com/$REPO" 2>&1 >/dev/null
+  git push --tags --quiet --set-upstream origin-auth master 2>&1 >/dev/null
 }
 
 
