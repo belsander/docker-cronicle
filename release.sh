@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 REPO='belsander/docker-cronicle.git'
 VERSION_FILE='VERSION'
@@ -41,11 +42,19 @@ push_changes() {
 
 
 # MAIN
+echo "Releasing GitHub \"$REPO\" ..."
 setup_git
 
 VERSION=$(get_version)
+echo "Current binary version: \"$VERSION\""
+
 set_version "$VERSION"
+
 commit_version "$VERSION"
+git show HEAD
+
 tag_version "$VERSION"
+git tag -l
 
 #push_changes
+echo "Released GitHub \"$REPO\" with version: \"$VERSION\""
