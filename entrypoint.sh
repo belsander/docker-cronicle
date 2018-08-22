@@ -6,6 +6,12 @@ BIN_DIR=$ROOT_DIR/bin
 # DATA_DIR needs to be the same as the exposed Docker volume in Dockerfile
 DATA_DIR=$ROOT_DIR/data
 
+# The env variables below are needed for Docker and cannot be overwritten
+export CRONICLE_Storage__Filesystem__base_dir=${DATA_DIR}
+export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+export CRONICLE_echo=1
+export CRONICLE_foreground=1
+
 # Only run setup when setup needs to be done
 if [ ! -f $DATA_DIR/.setup_done ]
 then
@@ -24,9 +30,4 @@ then
 fi
 
 # Run cronicle
-#  - the env variables below are needed for Docker and cannot be overwritten
-CRONICLE_Storage__Filesystem__base_dir=${DATA_DIR} \
-  CRONICLE_echo=1 \
-  CRONICLE_foreground=1 \
-  NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt \
-  $BIN_DIR/control.sh start
+$BIN_DIR/control.sh start
