@@ -20,3 +20,9 @@ script:
   - curl http://localhost:4012 | grep LICENSE
   - docker stop cronicle cronicle-letsencrypt
   - docker rm -f cronicle cronicle-letsencrypt
+
+deploy:
+  provider: script
+  script: release.sh
+  on:
+    branch: master
