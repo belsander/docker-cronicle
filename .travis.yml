@@ -25,4 +25,4 @@ deploy:
   provider: script
   script: release.sh
   on:
-    branch: master
+    branch: feature/releases-dockerhub

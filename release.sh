@@ -48,4 +48,4 @@ set_version "$VERSION"
 commit_version "$VERSION"
 tag_version "$VERSION"
 
-push_changes
+#push_changes
