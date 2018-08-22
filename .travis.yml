@@ -21,8 +21,5 @@ script:
   - docker stop cronicle cronicle-letsencrypt
   - docker rm -f cronicle cronicle-letsencrypt
 
-deploy:
-  provider: script
-  script: release.sh
-  on:
-    branch: feature/releases-dockerhub
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "feature/releases-dockerhub" ]]; then ./release.sh; fi
