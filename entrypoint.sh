@@ -3,6 +3,7 @@
 ROOT_DIR=/opt/cronicle
 CONF_DIR=$ROOT_DIR/conf
 BIN_DIR=$ROOT_DIR/bin
+LIB_DIR=$ROOT_DIR/lib
 # DATA_DIR needs to be the same as the exposed Docker volume in Dockerfile
 DATA_DIR=$ROOT_DIR/data
 
@@ -30,4 +31,4 @@ then
 fi
 
 # Run cronicle
-$BIN_DIR/control.sh start
+/usr/local/bin/node --expose_gc --always_compact "$LIB_DIR/main.js"
