@@ -83,7 +83,7 @@ else
   git tag -l
   echo "######################################################################"
 
-  #push_changes
+  push_changes
   echo "Released GitHub \"${REPO}\" with version: \"${VERSION}\""
 fi
 

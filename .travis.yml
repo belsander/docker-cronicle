@@ -22,4 +22,4 @@ script:
   - docker rm -f cronicle cronicle-letsencrypt
 
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "feature/releases-dockerhub" ]]; then ./release.sh; fi
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then ./release.sh; fi
