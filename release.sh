@@ -13,9 +13,20 @@ setup_git() {
   git config --global user.name "Sander Bel (Travis CI)"
 }
 
-get_version() {
+get_current_version() {
+  {
+    cat $VERSION_FILE 2>/dev/null
+  } || {
+    # No VERSION_FILE, so no versioned releases yet
+    echo "UNRELEASED"
+  }
+}
+
+get_new_version() {
   # Get version of binary to be released
-  eval "$VERSION_CMD"
+  RESULT=$(eval "$VERSION_CMD")
+  # Filter result from tabs, whitespaces and newlines
+  echo "${RESULT//[$'\t\r\n ']}"
 }
 
 set_version() {
@@ -25,36 +36,47 @@ set_version() {
 
 commit_version() {
   # Commit new version in VERSION_FILE
-  git add $VERSION_FILE 2>&1 >/dev/null
-  git commit --message "Bumped version: $1" 2>&1 >/dev/null
+  git add $VERSION_FILE >/dev/null 2>&1
+  git commit --message "Bumped version: $1" >/dev/null 2>&1
 }
 
 tag_version() {
   # Create tag at current commit
-  git tag "$1" 2>&1 >/dev/null
+  git tag "$1" >/dev/null 2>&1
 }
 
 push_changes() {
   # Push local changes to GitHub
-  git remote add origin-auth "https://${GH_AUTH}@github.com/$REPO" 2>&1 >/dev/null
-  git push --tags --quiet --set-upstream origin-auth master 2>&1 >/dev/null
+  git remote add origin-auth "https://${GH_AUTH}@github.com/$REPO" >/dev/null 2>&1
+  git push --tags --quiet --set-upstream origin-auth master >/dev/null 2>&1
 }
 
 
 # MAIN
-echo "Releasing GitHub \"$REPO\" ..."
+echo "Releasing GitHub \"${REPO}\" ..."
 setup_git
 
-VERSION=$(get_version)
-echo "Current binary version: \"$VERSION\""
+OLD_VERSION=$(get_current_version)
+echo "Latest release binary version: \"${OLD_VERSION}\""
+VERSION=$(get_new_version)
+echo "Current binary version: \"${VERSION}\""
 
-set_version "$VERSION"
+if [[ "$OLD_VERSION" == "$VERSION" ]]
+then
+  echo 'Latest release of binary is already present in last Docker image,
+    not releasing a new version'
+else
+  echo 'Newer version of binary found, releasing a new version!'
 
-commit_version "$VERSION"
-git show HEAD
+  set_version "$VERSION"
 
-tag_version "$VERSION"
-git tag -l
+  commit_version "$VERSION"
+  git show HEAD
 
-#push_changes
-echo "Released GitHub \"$REPO\" with version: \"$VERSION\""
+  tag_version "$VERSION"
+  git tag -l
+
+  #push_changes
+  echo "Released GitHub \"${REPO}\" with version: \"${VERSION}\""
+fi
+
