@@ -47,8 +47,9 @@ tag_version() {
 
 push_changes() {
   # Push local changes to GitHub
-  git remote add orgauth "https://${GH_AUTH}@github.com/$REPO" >/dev/null 2>&1
-  git push --tags --quiet --set-upstream origauth master >/dev/null 2>&1
+  git remote add github "https://${GH_AUTH}@github.com/$REPO" >/dev/null 2>&1
+  git push --set-upstream github master
+  git push --tags
 }
 
 
