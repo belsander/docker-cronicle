@@ -47,34 +47,41 @@ tag_version() {
 
 push_changes() {
   # Push local changes to GitHub
-  git remote add origin-auth "https://${GH_AUTH}@github.com/$REPO" >/dev/null 2>&1
-  git push --tags --quiet --set-upstream origin-auth master >/dev/null 2>&1
+  git remote add orgauth "https://${GH_AUTH}@github.com/$REPO" >/dev/null 2>&1
+  git push --tags --quiet --set-upstream origauth master >/dev/null 2>&1
 }
 
 
 # MAIN
+echo "######################################################################"
 echo "Releasing GitHub \"${REPO}\" ..."
+echo "######################################################################"
 setup_git
 
 OLD_VERSION=$(get_current_version)
 echo "Latest release binary version: \"${OLD_VERSION}\""
 VERSION=$(get_new_version)
 echo "Current binary version: \"${VERSION}\""
+echo "######################################################################"
 
 if [[ "$OLD_VERSION" == "$VERSION" ]]
 then
-  echo 'Latest release of binary is already present in last Docker image,
-    not releasing a new version'
+  echo 'Latest release of binary is already present in last Docker image,'\
+    'not releasing a new version'
 else
   echo 'Newer version of binary found, releasing a new version!'
+  echo "######################################################################"
 
   set_version "$VERSION"
 
   commit_version "$VERSION"
   git show HEAD
+  echo "######################################################################"
 
   tag_version "$VERSION"
+  echo 'Listing all Git tags:'
   git tag -l
+  echo "######################################################################"
 
   #push_changes
   echo "Released GitHub \"${REPO}\" with version: \"${VERSION}\""
