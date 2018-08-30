@@ -1,16 +1,22 @@
 #!/bin/bash
 set -e
 
-REPO='belsander/docker-cronicle.git'
+############# CUSTOM VARIABLES, SET THESE TO YOUR NEEDS #############
+GH_USER='belsander'
+GH_REPO='docker-travis-release'
 VERSION_FILE='VERSION'
 VERSION_CMD="docker run -ti intelliops/cronicle:latest \
   /bin/bash -c '/opt/cronicle/bin/control.sh version'"
+#####################################################################
 
+
+############## DO NOT MODIFY ANYTHING BELOW THIS LINE  ##############
+REPO="$GH_USER/$GH_REPO.git"
 
 setup_git() {
   # Configure git credentials for commit messages etc
-  git config --global user.email "sander@intelliops.be"
-  git config --global user.name "Sander Bel (Travis CI)"
+  git config --global user.email 'sander@intelliops.be'
+  git config --global user.name 'Sander Bel (Travis CI)'
 }
 
 get_current_version() {
@@ -37,19 +43,22 @@ set_version() {
 commit_version() {
   # Commit new version in VERSION_FILE
   git add $VERSION_FILE >/dev/null 2>&1
-  git commit --message "Bumped version: $1" >/dev/null 2>&1
+  git commit --message "Bumped version: $1 -> $2" >/dev/null 2>&1
 }
 
 tag_version() {
   # Create tag at current commit
-  git tag "$1" >/dev/null 2>&1
+  TAG="$1"
+  git tag "$TAG" >/dev/null 2>&1
+  echo "$TAG"
 }
 
 push_changes() {
-  # Push local changes to GitHub
-  git remote add github "https://${GH_AUTH}@github.com/$REPO" >/dev/null 2>&1
-  git push --set-upstream github master
-  git push --tags
+  # Push local changes to GitHub (auth via ENV variable)
+  git remote add auth "https://${GH_TOKEN}@github.com/$REPO" >/dev/null 2>&1
+  git push --follow-tags --set-upstream auth HEAD:master
+  # The above does not push the tag sadly, so doing it with an extra command
+  git push auth "$1"
 }
 
 
@@ -75,16 +84,15 @@ else
 
   set_version "$VERSION"
 
-  commit_version "$VERSION"
+  commit_version "$OLD_VERSION" "$VERSION"
   git show HEAD
   echo "######################################################################"
 
-  tag_version "$VERSION"
+  TAG=$(tag_version "$VERSION")
   echo 'Listing all Git tags:'
   git tag -l
   echo "######################################################################"
 
-  push_changes
+  push_changes "$TAG"
   echo "Released GitHub \"${REPO}\" with version: \"${VERSION}\""
 fi
-
