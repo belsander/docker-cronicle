@@ -31,4 +31,4 @@ then
 fi
 
 # Run cronicle
-/usr/local/bin/node --expose_gc --always_compact "$LIB_DIR/main.js"
+/usr/local/bin/node "$LIB_DIR/main.js"
