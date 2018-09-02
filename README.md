@@ -48,6 +48,7 @@ The web UI will be available at: http://localhost:3012
 |--------|--------|
 | /opt/cronicle/data | Volume for data |
 | /opt/cronicle/logs | Volume for logs |
+| /opt/cronicle/plugins | Volume for plugins |
 
 ## Configuration
 

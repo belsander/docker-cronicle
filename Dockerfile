@@ -21,6 +21,6 @@ ADD        entrypoint.sh /entrypoint.sh
 EXPOSE     3012
 
 # data volume is also configured in entrypoint.sh
-VOLUME     ["/opt/cronicle/data", "/opt/cronicle/logs"]
+VOLUME     ["/opt/cronicle/data", "/opt/cronicle/logs", "/opt/cronicle/plugins"]
 
 CMD        ["sh", "/entrypoint.sh"]

@@ -6,6 +6,8 @@ BIN_DIR=$ROOT_DIR/bin
 LIB_DIR=$ROOT_DIR/lib
 # DATA_DIR needs to be the same as the exposed Docker volume in Dockerfile
 DATA_DIR=$ROOT_DIR/data
+# PLUGINS_DIR needs to be the same as the exposed Docker volume in Dockerfile
+PLUGINS_DIR=$ROOT_DIR/plugins
 
 # The env variables below are needed for Docker and cannot be overwritten
 export CRONICLE_Storage__Filesystem__base_dir=${DATA_DIR}
@@ -25,6 +27,9 @@ then
     # Move in custom configuration
     cp $DATA_DIR/config.json.import $CONF_DIR/config.json
   fi
+
+  # Create plugins directory
+  mkdir -p $PLUGINS_DIR
 
   # Marking setup done
   touch $DATA_DIR/.setup_done
