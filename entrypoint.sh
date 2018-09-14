@@ -4,6 +4,7 @@ ROOT_DIR=/opt/cronicle
 CONF_DIR=$ROOT_DIR/conf
 BIN_DIR=$ROOT_DIR/bin
 LIB_DIR=$ROOT_DIR/lib
+INIT_DIR=$ROOT_DIR/init
 # DATA_DIR needs to be the same as the exposed Docker volume in Dockerfile
 DATA_DIR=$ROOT_DIR/data
 # PLUGINS_DIR needs to be the same as the exposed Docker volume in Dockerfile
@@ -22,10 +23,18 @@ then
 
   cp $CONF_DIR/config.json $CONF_DIR/config.json.origin
 
-  if [ -f $DATA_DIR/config.json.import ]
+  if [ -f $INIT_DIR/config.json.import ]
   then
     # Move in custom configuration
-    cp $DATA_DIR/config.json.import $CONF_DIR/config.json
+    echo "using the custom config file from $INIT_DIR/config.json.import"
+    cp $INIT_DIR/config.json.import $INIT_DIR/config.json
+  fi
+
+  if [ -f $INIT_DIR/cronicle.json.backup ]
+  then
+    # restore the backup file
+    echo "restoring backup file: $INIT_DIR/cronicle.json.backup"
+    /opt/cronicle/bin/control.sh import $INIT_DIR/cronicle.json.backup
   fi
 
   # Create plugins directory

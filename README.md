@@ -36,7 +36,7 @@ docker run --name cronicle \
   --hostname localhost -p 3012:3012 intelliops/cronicle:latest
 ```
 
-The web UI will be available at: http://localhost:3012
+The web UI will be available at: http://localhost:3012/
 
 > NOTE: please replace the hostname `localhost`, this is only for testing
 > purposes! If you rename the hostname also consider setting the environmental
@@ -70,11 +70,31 @@ For overriding configuration properties by environment variable, you can specify
 ### Custom configuration file
 A custom configuration file can be provide in the following location:
 ```sh
-/path-to-cronicle-storage/data/config.json.import
+/path-to-cronicle-storage/init/config.json.import
 ```
 The file will get loaded the very first time Cronicle is started. If afterwards
 a forced reload of the custom configuration is needed remove the following file
 and restart the Docker container:
+```sh
+/path-to-cronicle-storage/data/.setup_done
+```
+
+### Restore a backup file
+
+To start cronicle with some jobs or settings, or to import something into an
+existing cronicle, a full (or partial) backup file can be put in the following
+location:
+```sh
+/path-to-cronicle-storage/init/cronicle.json.backup
+```
+This backup file can be a complete backup, or can be a portion of a backup
+file - for example (contains just one schedule definition):
+```json
+global/schedule/0 - {"type":"list_page","items":[{"enabled":1,"params":{"script":"#!/bin/sh -ex\n\nif [ ! -e \"./docker/docker\" ]; then\n\tcurl https://download.docker.com/linux/static/stable/x86_64/docker-18.06.1-ce.tgz | tar zxvf -\nfi\n\n./docker/docker run --rm --network elasticsearch_esnetwork docker-registry.it.csiro.au/sima/es_curator","annotate":1,"json":0},"timing":{"hours":[14],"minutes":[30]},"max_children":1,"timeout":3600,"catch_up":0,"queue_max":1000,"timezone":"Australia/Brisbane","plugin":"shellplug","title":"elastic search expirey","category":"general","target":"allgrp","algo":"random","multiplex":0,"stagger":0,"retries":0,"retry_delay":0,"detached":0,"queue":0,"chain":"","chain_error":"","notify_success":"","notify_fail":"","web_hook":"","cpu_limit":0,"cpu_sustain":0,"memory_limit":0,"memory_sustain":0,"log_max_size":0,"notes":"","id":"ejm1hnmzf01","modified":1536898451,"created":1536898451,"username":"admin"}]}
+```
+
+The file will be restored the very first time Cronicle is started. To force a
+new import, remove the following file and restart the Docker container:
 ```sh
 /path-to-cronicle-storage/data/.setup_done
 ```
