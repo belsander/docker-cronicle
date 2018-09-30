@@ -1,5 +1,5 @@
 FROM       node:10.11-alpine
-MAINTAINER Sander Bel <sander@intelliops.be>
+LABEL      maintainer="Sander Bel <sander@intelliops.be>"
 
 ARG        CRONICLE_VERSION='0.8.28'
 

@@ -1,5 +1,5 @@
 FROM       intelliops/cronicle:latest
-MAINTAINER Sander Bel <sander@intelliops.be>
+LABEL      maintainer="Sander Bel <sander@intelliops.be>"
 
 RUN        curl https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem -o /usr/local/share/ca-certificates/LetsEncryptX3IdenTrust.crt && \
            chmod 644 /usr/local/share/ca-certificates/LetsEncryptX3IdenTrust.crt && \
