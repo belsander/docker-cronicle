@@ -20,6 +20,3 @@ script:
   - curl http://localhost:4012 | grep LICENSE
   - docker stop cronicle cronicle-letsencrypt
   - docker rm -f cronicle cronicle-letsencrypt
-
-after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then ./release.sh; fi
