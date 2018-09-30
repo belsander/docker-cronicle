@@ -5,8 +5,8 @@ Docker container for a Cronicle single-server master node
 
 # Supported tags
 
-* `latest` [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
-* `letsencrypt` [Dockerfile.letsencrypt](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.letsencrypt)
+* `0.8.28`, `latest` [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
+* `0.8.28-letsencrypt`, `letsencrypt` [Dockerfile.letsencrypt](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.letsencrypt)
 
 ## latest
 Latest version of Cronicle server based upon nodejs Docker image.
