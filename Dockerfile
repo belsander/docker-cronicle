@@ -1,5 +1,7 @@
-FROM       node:9.11-alpine
+FROM       node:10.11-alpine
 MAINTAINER Sander Bel <sander@intelliops.be>
+
+ARG        CRONICLE_VERSION='0.8.28'
 
 # Docker defaults
 ENV        CRONICLE_base_app_url 'http://localhost:3012'
@@ -14,7 +16,9 @@ WORKDIR    /opt/cronicle/
 
 RUN        apk add --no-cache git curl wget perl bash perl-pathtools tar procps
 
-RUN        curl -s https://raw.githubusercontent.com/jhuckaby/Cronicle/master/bin/install.js | node
+RUN        curl -L "https://github.com/jhuckaby/Cronicle/archive/v${CRONICLE_VERSION}.tar.gz" | tar zxvf - --strip-components 1 && \
+           npm install && \
+           node bin/build.js dist
 
 ADD        entrypoint.sh /entrypoint.sh
 
