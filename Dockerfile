@@ -17,13 +17,16 @@ RUN        apk add --no-cache git curl wget perl bash perl-pathtools tar \
 
 RUN        adduser cronicle -D -h /opt/cronicle
 
-USER       cronicle
-
 WORKDIR    /opt/cronicle/
 
-RUN        mkdir -p data logs plugins
-
+# Latest version has to be installed using root user
 RUN        curl -s "https://raw.githubusercontent.com/jhuckaby/Cronicle/master/bin/install.js" | node
+
+RUN        chown cronicle:cronicle *
+
+USER       cronicle
+
+RUN        mkdir -p data logs plugins
 
 ADD        entrypoint.sh /entrypoint.sh
 
