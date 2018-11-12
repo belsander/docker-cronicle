@@ -1,4 +1,4 @@
-FROM       intelliops/cronicle:0.8.28
+FROM       intelliops/cronicle:latest
 LABEL      maintainer="Sander Bel <sander@intelliops.be>"
 
 # Amazon S3
