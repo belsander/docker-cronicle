@@ -12,9 +12,16 @@ ENV        CRONICLE_server_comm_use_hostnames 1
 ENV        CRONICLE_web_direct_connect 0
 ENV        CRONICLE_socker_io_transports '["polling", "websocket"]'
 
+RUN        apk add --no-cache git curl wget perl bash perl-pathtools tar \
+             procps tini
+
+RUN        adduser cronicle -D -h /opt/cronicle
+
+USER       cronicle
+
 WORKDIR    /opt/cronicle/
 
-RUN        apk add --no-cache git curl wget perl bash perl-pathtools tar procps
+RUN        mkdir -p data logs plugins
 
 RUN        curl -L "https://github.com/jhuckaby/Cronicle/archive/v${CRONICLE_VERSION}.tar.gz" | tar zxvf - --strip-components 1 && \
            npm install && \
@@ -26,5 +33,7 @@ EXPOSE     3012
 
 # data volume is also configured in entrypoint.sh
 VOLUME     ["/opt/cronicle/data", "/opt/cronicle/logs", "/opt/cronicle/plugins"]
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 CMD        ["sh", "/entrypoint.sh"]
