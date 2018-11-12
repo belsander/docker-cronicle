@@ -1,5 +1,9 @@
 FROM       intelliops/cronicle:latest
 LABEL      maintainer="Sander Bel <sander@intelliops.be>"
 
+USER       root
+
 # Amazon S3
 RUN        npm install aws-sdk
+
+USER       cronicle
