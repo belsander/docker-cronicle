@@ -1,6 +1,10 @@
 FROM       intelliops/cronicle:0.8.28
 LABEL      maintainer="Sander Bel <sander@intelliops.be>"
 
+USER       root
+
 RUN        curl https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem -o /usr/local/share/ca-certificates/LetsEncryptX3IdenTrust.crt && \
            chmod 644 /usr/local/share/ca-certificates/LetsEncryptX3IdenTrust.crt && \
            update-ca-certificates
+
+USER       cronicle
