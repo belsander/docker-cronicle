@@ -10,7 +10,7 @@ ENV        CRONICLE_WebServer__https_port 443
 ENV        CRONICLE_web_socket_use_hostnames 1
 ENV        CRONICLE_server_comm_use_hostnames 1
 ENV        CRONICLE_web_direct_connect 0
-ENV        CRONICLE_socker_io_transports '["polling", "websocket"]'
+ENV        CRONICLE_socket_io_transports '["polling", "websocket"]'
 
 RUN        apk add --no-cache git curl wget perl bash perl-pathtools tar \
              procps tini
