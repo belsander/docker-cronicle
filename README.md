@@ -3,6 +3,8 @@
 
 Docker container for a Cronicle single-server master node
 
+This image fixes a known issue with the intelliops/belsander image: https://github.com/belsander/docker-cronicle/issues/19
+
 # Supported tags
 
 * `0.8.28`, `latest` [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
