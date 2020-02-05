@@ -28,6 +28,12 @@ then
     cp $DATA_DIR/config.json.import $CONF_DIR/config.json
   fi
 
+  # load exported data if present
+  if [ -f $DATA_DIR/backup.txt.import ]
+  then
+    $BIN_DIR/control.sh import $DATA_DIR/backup.txt.import
+  fi
+
   # Create plugins directory
   mkdir -p $PLUGINS_DIR
 
