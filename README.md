@@ -85,6 +85,13 @@ and restart the Docker container:
 ```sh
 /path-to-cronicle-storage/data/.setup_done
 ```
+### Import data
+A previously [exported data file](https://github.com/jhuckaby/Cronicle#data-import-and-export) can be provided in the following location:
+
+```sh
+/path-to-cronicle-storage/data/backup.txt.import
+```
+The file will get loaded the very first time Cronicle is started.
 
 ## Web UI credentials
 The default credentials for the web interface are: `admin` / `admin`
