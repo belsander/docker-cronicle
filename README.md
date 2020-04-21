@@ -7,17 +7,14 @@ This image fixes a known issue with the intelliops/belsander image: https://gith
 
 # Supported tags
 
-* `0.8.28`, `latest` [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
-* `0.8.28-letsencrypt`, `letsencrypt` [Dockerfile.letsencrypt](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.letsencrypt)
-* `0.8.28-s3`, `s3` [Dockerfile.s3](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.s3)
+* `latest`, `0.8.45`, [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
+* `latest-s3` , `0.8.45-s3`,[Dockerfile.s3](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.s3)
+
+* `0.8.28` [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
+* `0.8.28-s3` [Dockerfile.s3](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.s3)
 
 ## latest
 Latest version of Cronicle server based upon nodejs Docker image.
-
-## letsencrypt
-Same as the `latest` Docker image, but with support for Let's Encrypt
-certificates. Which means that the Cronicle server can be used with SSL and a
-Let's Encrypt certificate. If this is not needed, just use the tag `latest`.
 
 ## s3
 Same as the `latest` Docker image, but with support for Amazon S3 storage. If
