@@ -3,19 +3,18 @@
 
 Docker container for a Cronicle single-server master node
 
+This image fixes a known issue with the intelliops/belsander image: https://github.com/belsander/docker-cronicle/issues/19
+
 # Supported tags
 
-* `0.8.28`, `latest` [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
-* `0.8.28-letsencrypt`, `letsencrypt` [Dockerfile.letsencrypt](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.letsencrypt)
-* `0.8.28-s3`, `s3` [Dockerfile.s3](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.s3)
+* `latest`, `0.8.45`, [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
+* `latest-s3` , `0.8.45-s3`,[Dockerfile.s3](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.s3)
+
+* `0.8.28` [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
+* `0.8.28-s3` [Dockerfile.s3](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.s3)
 
 ## latest
 Latest version of Cronicle server based upon nodejs Docker image.
-
-## letsencrypt
-Same as the `latest` Docker image, but with support for Let's Encrypt
-certificates. Which means that the Cronicle server can be used with SSL and a
-Let's Encrypt certificate. If this is not needed, just use the tag `latest`.
 
 ## s3
 Same as the `latest` Docker image, but with support for Amazon S3 storage. If
@@ -25,12 +24,12 @@ there is no need for S3, again, just go for `latest`.
 
 ## Install
 ```sh
-docker pull intelliops/cronicle:latest
+docker pull nicholasamorim/cronicle:latest
 ```
 
 ## Running
 ```sh
-docker run --name cronicle --hostname localhost -p 3012:3012 intelliops/cronicle:latest
+docker run --name cronicle --hostname localhost -p 3012:3012 nicholasamorim/cronicle:latest
 ```
 
 Alternatively with persistent data and logs:
@@ -38,7 +37,7 @@ Alternatively with persistent data and logs:
 docker run --name cronicle \
   -v /path-to-cronicle-storage/data:/opt/cronicle/data:rw \
   -v /path-to-cronicle-storage/logs:/opt/cronicle/logs:rw \
-  --hostname localhost -p 3012:3012 intelliops/cronicle:latest
+  --hostname localhost -p 3012:3012 nicholasamorim/cronicle:latest
 ```
 
 The web UI will be available at: http://localhost:3012
@@ -46,7 +45,7 @@ The web UI will be available at: http://localhost:3012
 > NOTE: please replace the hostname `localhost`, this is only for testing
 > purposes! If you rename the hostname also consider setting the environmental
 > variable `CRONICLE_base_app_url`.
-> e.g `docker run --name cronicle --hostname cronicle-host -p 3012:3012 -e CRONICLE_base_app_url='http://cronicle-host:3012' intelliops/cronicle:latest`
+> e.g `docker run --name cronicle --hostname cronicle-host -p 3012:3012 -e CRONICLE_base_app_url='http://cronicle-host:3012' nicholasamorim/cronicle:latest`
 
 ## Volumes
 Cronicle process runs under the `cronicle` user with `ID 1001` and `GUID `1001`.  If you are using Docker bind mounts set permissions accordingly.

@@ -1,5 +1,5 @@
-FROM       intelliops/cronicle:0.8.28
-LABEL      maintainer="Sander Bel <sander@intelliops.be>"
+FROM       nicholasamorim/cronicle:0.8.45
+LABEL      maintainer="Nicholas Amorim <nicholas@pagefreezer.com>"
 
 USER       root
 
