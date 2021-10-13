@@ -1,3 +1,7 @@
+**DEPRECATED**
+
+**Please use https://github.com/bluet/docker-cronicle-docker instead.**
+
 # docker-cronicle
 [![Build status](https://img.shields.io/docker/build/intelliops/cronicle.svg)](https://hub.docker.com/r/intelliops/cronicle) [![Build status](https://img.shields.io/travis/belsander/docker-cronicle/master.svg)](https://travis-ci.org/belsander/docker-cronicle)
 
